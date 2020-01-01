@@ -1,6 +1,5 @@
 // +build integration move to top
 
-//Package db ...
 package db
 
 import (
@@ -21,7 +20,7 @@ func TestUserDBRolei_Con(t *testing.T) {
 	mydb.User = "admin"
 	mydb.Password = "admin"
 	mydb.Database = "go_auth2_users"
-	dbbi = &mydb	
+	dbbi = &mydb
 	dbbi.Connect()
 
 }
