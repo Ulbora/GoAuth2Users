@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+//GO111MODULE=on go mod init github.com/Ulbora/GoAuth2Users
 func main() {
 	router := mux.NewRouter()
 	port := "3001"

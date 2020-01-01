@@ -1,6 +1,6 @@
 # GoAuth2Users
 
-A User authentication service designed for use with GoAuth2, the OAuth2 server by Ulbora Labs LLC.
+A User authentication microservice designed for use with GoAuth2, the OAuth2 server by Ulbora Labs LLC.
 
 
 [![Build Status](https://travis-ci.org/Ulbora/GoAuth2Users.svg?branch=master)](https://travis-ci.org/Ulbora/GoAuth2Users)
