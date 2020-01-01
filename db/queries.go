@@ -23,8 +23,31 @@ package db
 
 const (
 	connectTest = "select count(*) from user "
+
 	insertRole  = "INSERT INTO role (role) values(?) "
 	getRole     = "SELECT * FROM role WHERE id = ?"
 	getRoleList = "SELECT * FROM role"
 	deleteRole  = "DELETE FROM role WHERE id = ?"
+
+	insertUser = "INSERT INTO user (username, password, enabled, date_entered, email_address, first_name, " +
+		"last_name, role_id, client_id) values(?, ?, ?, ?, ?, ?, ?, ?, ?) "
+
+	updateUser = "UPDATE user SET password = ?, enabled = ?, email_address = ?, first_name = ?, " +
+		"last_name = ?, role_id = ? " +
+		"WHERE username = ? and client_id = ? "
+
+	getUser = "SELECT * FROM user WHERE username = ? and client_id = ? "
+
+	getUserList = "SELECT username, password, enabled, date_entered, email_address, first_name, " +
+		"last_name, role_id, client_id " +
+		"FROM user " +
+		"order by client_id "
+
+	searchUserList = "SELECT username, password, enabled, date_entered, email_address, first_name, " +
+		"last_name, role_id, client_id " +
+		"FROM user " +
+		"where client_id = ? " +
+		"order by username "
+
+	deleteUser = "DELETE FROM user WHERE username = ? and client_id = ? "
 )

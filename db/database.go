@@ -30,6 +30,11 @@ import (
 	dbi "github.com/Ulbora/dbinterface"
 )
 
+const (
+	//TimeFormat TimeFormat
+	TimeFormat = "2006-01-02"
+)
+
 //UserDatabase UserDatabase
 type UserDatabase interface {
 	AddRole(rl *Role) (bool, int64)
@@ -37,12 +42,12 @@ type UserDatabase interface {
 	GetRoleList() *[]Role
 	DeleteRole(id int64) bool
 
-	// AddUser(us *User) (bool, int64)
-	// UpdateUser(us *User) bool
-	// GetUser(id int64) *User
-	// GetUserList() *[]User
-	// SearchUserList(cid int64) *[]User
-	//DeleteUser(id int64) bool
+	AddUser(us *User) bool
+	UpdateUser(us *User) bool
+	GetUser(username string, clientID int64) *User
+	GetUserList() *[]User
+	SearchUserList(cid int64) *[]User
+	DeleteUser(username string, clientID int64) bool
 }
 
 //UserDB UserDB

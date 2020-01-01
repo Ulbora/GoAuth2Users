@@ -28,7 +28,7 @@ func TestUserDBRole_AddRole(t *testing.T) {
 	var r Role
 	r.Role = "testRole"
 	suc, id := db.AddRole(&r)
-	if !suc && id != 1 {
+	if !suc || id != 1 {
 		t.Fail()
 	}
 }
@@ -52,7 +52,7 @@ func TestUserDBRole_AddRoleTestRow(t *testing.T) {
 	var r Role
 	r.Role = "testRole"
 	suc, id := db.AddRole(&r)
-	if !suc && id != 1 {
+	if !suc || id != 1 {
 		t.Fail()
 	}
 }
@@ -76,7 +76,7 @@ func TestUserDBRole_AddRoleBadTest(t *testing.T) {
 	var r Role
 	r.Role = "testRole"
 	suc, id := db.AddRole(&r)
-	if !suc && id != 1 {
+	if !suc || id != 1 {
 		t.Fail()
 	}
 }
