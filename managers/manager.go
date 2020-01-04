@@ -30,13 +30,15 @@ import (
 
 //Manager Manager
 type Manager interface {
-	AddRole(rl *db.Role) (bool, int64)
-	GetRole(id int64) *db.Role
-	GetRoleList() *[]db.Role
-	DeleteRole(id int64) bool
+	// AddRole(rl *db.Role) (bool, int64)
+	// GetRole(id int64) *db.Role
+	// GetRoleList() *[]db.Role
+	// DeleteRole(id int64) bool
 
 	AddUser(us *db.User) bool
-	UpdateUser(us *db.User) bool
+	UpdateUserPassword(us *db.User) bool
+	UpdateUserEnabled(us *db.User) bool
+	UpdateUserInfo(us *db.User) bool
 	GetUser(username string, clientID int64) *User
 	GetUserList() *[]UserList
 	SearchUserList(cid int64) *[]UserList
@@ -87,4 +89,11 @@ func (m *UserManager) validatePassword(pw string, hpw string) bool {
 		suc = true
 	}
 	return suc
+}
+
+//GetNew GetNew
+func (m *UserManager) GetNew() Manager {
+	var man Manager
+	man = m
+	return man
 }

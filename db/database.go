@@ -96,3 +96,10 @@ func (d *UserDB) testConnection() bool {
 	}
 	return rtn
 }
+
+//GetNew GetNew
+func (d *UserDB) GetNew() UserDatabase {
+	var db UserDatabase
+	db = d
+	return db
+}

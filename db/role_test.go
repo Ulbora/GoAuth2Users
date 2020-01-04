@@ -13,10 +13,10 @@ func TestUserDBRole_AddRole(t *testing.T) {
 	var dbbi dbi.Database
 	var mydb mdb.MyDBMock
 	dbbi = &mydb
-	var db UserDatabase
+	//var db UserDatabase
 	var udb UserDB
 	udb.DB = dbbi
-	db = &udb
+	db := udb.GetNew()
 
 	var mTestRow dbi.DbRow
 	mTestRow.Row = []string{}
