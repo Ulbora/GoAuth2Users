@@ -2,7 +2,6 @@
 package managers
 
 import (
-	"fmt"
 	"time"
 
 	db "github.com/Ulbora/GoAuth2Users/db"
@@ -36,7 +35,7 @@ func (m *UserManager) AddUser(us *db.User) bool {
 		if suc {
 			us.Password = hpw
 			us.Entered = time.Now()
-			fmt.Println("user: ", us)
+			//fmt.Println("user: ", us)
 			usuc := m.UserDB.AddUser(us)
 			if usuc {
 				rtn = true
@@ -54,7 +53,7 @@ func (m *UserManager) UpdateUserPassword(us *db.User) bool {
 		suc, hpw := m.hashPassword(us.Password)
 		if suc {
 			u.Password = hpw
-			fmt.Println("user: ", us)
+			//fmt.Println("user: ", us)
 			usuc := m.UserDB.UpdateUser(u)
 			if usuc {
 				rtn = true
@@ -70,7 +69,7 @@ func (m *UserManager) UpdateUserEnabled(us *db.User) bool {
 	if us.Username != "" && us.ClientID > 0 {
 		u := m.UserDB.GetUser(us.Username, us.ClientID)
 		u.Enabled = us.Enabled
-		fmt.Println("user: ", us)
+		//fmt.Println("user: ", us)
 		usuc := m.UserDB.UpdateUser(u)
 		if usuc {
 			rtn = true
@@ -88,7 +87,7 @@ func (m *UserManager) UpdateUserInfo(us *db.User) bool {
 		u.FirstName = us.FirstName
 		u.LastName = us.LastName
 		u.RoleID = us.RoleID
-		fmt.Println("user: ", us)
+		//fmt.Println("user: ", us)
 		usuc := m.UserDB.UpdateUser(u)
 		if usuc {
 			rtn = true
