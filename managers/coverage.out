@@ -1,11 +1,4 @@
 mode: set
-github.com/Ulbora/GoAuth2Users/managers/manager.go:74.62,78.16 4 1
-github.com/Ulbora/GoAuth2Users/managers/manager.go:82.2,82.17 1 1
-github.com/Ulbora/GoAuth2Users/managers/manager.go:78.16,81.3 2 1
-github.com/Ulbora/GoAuth2Users/managers/manager.go:85.68,88.16 3 1
-github.com/Ulbora/GoAuth2Users/managers/manager.go:91.2,91.12 1 1
-github.com/Ulbora/GoAuth2Users/managers/manager.go:88.16,90.3 1 1
-github.com/Ulbora/GoAuth2Users/managers/manager.go:95.40,99.2 3 1
 github.com/Ulbora/GoAuth2Users/managers/roleManager.go:31.58,34.19 3 1
 github.com/Ulbora/GoAuth2Users/managers/roleManager.go:42.2,42.16 1 1
 github.com/Ulbora/GoAuth2Users/managers/roleManager.go:34.19,37.10 3 1
@@ -44,3 +37,23 @@ github.com/Ulbora/GoAuth2Users/managers/userManager.go:140.72,142.36 2 1
 github.com/Ulbora/GoAuth2Users/managers/userManager.go:145.2,145.12 1 1
 github.com/Ulbora/GoAuth2Users/managers/userManager.go:142.36,144.3 1 1
 github.com/Ulbora/GoAuth2Users/managers/userManager.go:148.44,156.2 7 1
+github.com/Ulbora/GoAuth2Users/managers/manager.go:74.62,78.16 4 1
+github.com/Ulbora/GoAuth2Users/managers/manager.go:82.2,82.17 1 1
+github.com/Ulbora/GoAuth2Users/managers/manager.go:78.16,81.3 2 1
+github.com/Ulbora/GoAuth2Users/managers/manager.go:85.68,88.16 3 1
+github.com/Ulbora/GoAuth2Users/managers/manager.go:91.2,91.12 1 1
+github.com/Ulbora/GoAuth2Users/managers/manager.go:88.16,90.3 1 1
+github.com/Ulbora/GoAuth2Users/managers/manager.go:95.40,99.2 3 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:44.62,46.2 1 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:49.54,51.2 1 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:54.52,56.2 1 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:59.53,61.2 1 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:64.53,66.2 1 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:69.64,71.2 1 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:74.63,76.2 1 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:79.60,81.2 1 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:84.74,86.2 1 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:89.53,91.2 1 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:94.65,96.2 1 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:99.76,101.2 1 1
+github.com/Ulbora/GoAuth2Users/managers/mockManager.go:104.44,108.2 3 1
