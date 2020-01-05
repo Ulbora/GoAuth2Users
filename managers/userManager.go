@@ -145,6 +145,18 @@ func (m *UserManager) DeleteUser(username string, clientID int64) bool {
 	return rtn
 }
 
+//ValidateUser ValidateUser for login
+func (m *UserManager) ValidateUser(username string, password string, clientID int64) bool {
+	var rtn bool
+	if username != "" && password != "" && clientID > 0 {
+		u := m.UserDB.GetUser(username, clientID)
+		if m.validatePassword(password, u.Password) {
+			rtn = true
+		}
+	}
+	return rtn
+}
+
 func processUserList(u *db.User) *UserList {
 	var rtnl UserList
 	rtnl.Username = u.Username

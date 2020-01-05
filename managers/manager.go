@@ -43,6 +43,8 @@ type Manager interface {
 	GetUserList() *[]UserList
 	SearchUserList(cid int64) *[]UserList
 	DeleteUser(username string, clientID int64) bool
+
+	ValidateUser(username string, password string, clientID int64) bool
 }
 
 //UserManager UserManager

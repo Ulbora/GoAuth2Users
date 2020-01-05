@@ -222,3 +222,15 @@ func TestMockUserManager_DeleteUser(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestMockUserManager_LoginUser(t *testing.T) {
+	var um MockUserManager
+	man := um.GetNew()
+
+	um.MockUserLoginSuc = true
+
+	suc := man.ValidateUser("tester", "tester", 55)
+	if !suc {
+		t.Fail()
+	}
+}

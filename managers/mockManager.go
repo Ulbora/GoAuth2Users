@@ -38,6 +38,8 @@ type MockUserManager struct {
 	MockUser              *User
 	MockUserList          *[]UserList
 	MockDeleteUserSuc     bool
+
+	MockUserLoginSuc bool
 }
 
 //AddRole AddRole
@@ -98,6 +100,11 @@ func (m *MockUserManager) SearchUserList(cid int64) *[]UserList {
 //DeleteUser DeleteUser
 func (m *MockUserManager) DeleteUser(username string, clientID int64) bool {
 	return m.MockDeleteUserSuc
+}
+
+//ValidateUser ValidateUser for login
+func (m *MockUserManager) ValidateUser(username string, password string, clientID int64) bool {
+	return m.MockUserLoginSuc
 }
 
 //GetNew GetNew

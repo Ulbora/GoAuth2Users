@@ -311,3 +311,34 @@ func TestUserManager_DeleteUser(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestUserManager_LoginUser(t *testing.T) {
+
+	var dbbi dbi.Database
+	var mydb mdb.MyDBMock
+
+	dbbi = &mydb
+	dbbi.Connect()
+	//var udbi db.UserDatabase
+	var udb db.UserDB
+	udb.DB = dbbi
+	udbi := udb.GetNew()
+
+	var mTestRow dbi.DbRow
+	mTestRow.Row = []string{}
+	mydb.MockTestRow = &mTestRow
+
+	var mGetRow dbi.DbRow
+	mGetRow.Row = []string{"tester", "$2a$10$Cp5LWuqgayns7.Fox1hCiuQw.Ya3nmAgOH7GMYfVDWQYCirICIioS", "1", "2019-12-01", "tester@tester.com", "test", "er1", "2", "444"}
+	mydb.MockRow1 = &mGetRow
+
+	//var man Manager
+	var uman UserManager
+	uman.UserDB = udbi
+	man := uman.GetNew()
+
+	suc := man.ValidateUser("tester", "tester123", 10)
+	if !suc {
+		t.Fail()
+	}
+}
