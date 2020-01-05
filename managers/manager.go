@@ -30,10 +30,10 @@ import (
 
 //Manager Manager
 type Manager interface {
-	// AddRole(rl *db.Role) (bool, int64)
-	// GetRole(id int64) *db.Role
-	// GetRoleList() *[]db.Role
-	// DeleteRole(id int64) bool
+	AddRole(rl *db.Role) (bool, int64)
+	GetRole(id int64) *db.Role
+	GetRoleList() *[]db.Role
+	DeleteRole(id int64) bool
 
 	AddUser(us *db.User) bool
 	UpdateUserPassword(us *db.User) bool

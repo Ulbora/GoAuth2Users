@@ -6,6 +6,13 @@ github.com/Ulbora/GoAuth2Users/managers/manager.go:85.68,88.16 3 1
 github.com/Ulbora/GoAuth2Users/managers/manager.go:91.2,91.12 1 1
 github.com/Ulbora/GoAuth2Users/managers/manager.go:88.16,90.3 1 1
 github.com/Ulbora/GoAuth2Users/managers/manager.go:95.40,99.2 3 1
+github.com/Ulbora/GoAuth2Users/managers/roleManager.go:31.58,34.19 3 1
+github.com/Ulbora/GoAuth2Users/managers/roleManager.go:42.2,42.16 1 1
+github.com/Ulbora/GoAuth2Users/managers/roleManager.go:34.19,37.10 3 1
+github.com/Ulbora/GoAuth2Users/managers/roleManager.go:37.10,40.4 2 1
+github.com/Ulbora/GoAuth2Users/managers/roleManager.go:46.50,49.2 2 1
+github.com/Ulbora/GoAuth2Users/managers/roleManager.go:52.48,55.2 2 1
+github.com/Ulbora/GoAuth2Users/managers/roleManager.go:58.49,61.2 2 1
 github.com/Ulbora/GoAuth2Users/managers/userManager.go:31.49,33.106 2 1
 github.com/Ulbora/GoAuth2Users/managers/userManager.go:45.2,45.12 1 1
 github.com/Ulbora/GoAuth2Users/managers/userManager.go:33.106,35.10 2 1
