@@ -1,6 +1,11 @@
 github.com/Ulbora/GoAuth2 v0.0.0-20200101180140-c8b5698dd82e h1:Jkc/5RuKZJVhdW0+AU5A5yxf4iwRXbyIzAbNPES9qY8=
 github.com/Ulbora/GoAuth2 v0.0.0-20200101180140-c8b5698dd82e/go.mod h1:iY3YpGiLZq6cJqVwnEcAKOTp81ILENo5dXR2jKZy2OY=
+github.com/Ulbora/GoAuth2JwtValidator v1.0.0 h1:G4p5vvjBTTgJ69GhWqU9ThBP/+7+Tt+eVXJgkyhknx4=
+github.com/Ulbora/GoAuth2JwtValidator v1.0.0/go.mod h1:xD+sXnBao/pkuWx+6RvLATP5KvQ6H9EOFz6DyF4wcq8=
+github.com/Ulbora/GoProxy v1.0.1 h1:7gFPaJdXDV3tFDSWYxpQx7SQmNKcZPrv4SMwxa+vFhA=
 github.com/Ulbora/GoProxy v1.0.1/go.mod h1:8qICy+U1tSywRYoy9RdP+Zm6G2nN2K1YcvMupVlkIYI=
+github.com/Ulbora/JwtCompression v1.0.0 h1:DciJwdSDSzU18wC3R8j8FopjKJ4zlgCZutZsRIGSNbs=
+github.com/Ulbora/JwtCompression v1.0.0/go.mod h1:xomeqcXA+XLQwio+onN8aj/kGfxFx7UFy5oGj/6O43U=
 github.com/Ulbora/dbinterface v1.0.5 h1:hzAsS92kIKIApFb6av1vGGz4+lRNOyfzhh5HXxoUiIg=
 github.com/Ulbora/dbinterface v1.0.5/go.mod h1:msBriehF2JgLgSpNWq2Yc3MKy3/Rn9aChefibmW1xWM=
 github.com/Ulbora/dbinterface_mysql v1.0.7 h1:rFOaRaKaARFLEd8hYxvFIbbN49FFI2j/m7iy10sGOas=
