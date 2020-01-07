@@ -50,9 +50,9 @@ type Response struct {
 //Handler Handler
 type Handler interface {
 	AddRole(w http.ResponseWriter, r *http.Request)
-	// GetRole(w http.ResponseWriter, r *http.Request)
-	// GetRoleList(w http.ResponseWriter, r *http.Request)
-	// DeleteRole(w http.ResponseWriter, r *http.Request)
+	GetRole(w http.ResponseWriter, r *http.Request)
+	GetRoleList(w http.ResponseWriter, r *http.Request)
+	DeleteRole(w http.ResponseWriter, r *http.Request)
 
 	// AddUser(w http.ResponseWriter, r *http.Request)
 	// UpdateUser(w http.ResponseWriter, r *http.Request)
