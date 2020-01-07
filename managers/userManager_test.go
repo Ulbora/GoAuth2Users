@@ -264,7 +264,7 @@ func TestUserManager_UpdateUserInfo(t *testing.T) {
 	mydb.MockUpdateSuccess1 = true
 
 	var mGetRow dbi.DbRow
-	mGetRow.Row = []string{"tester1", "password", "1", "2019-12-01", "tester11@tester.com", "test", "er1", "2", "444"}
+	mGetRow.Row = []string{"tester1", "password", "1", "", "tester11@tester.com", "test", "er1", "2", "444"}
 	mydb.MockRow1 = &mGetRow
 
 	var u db.User
