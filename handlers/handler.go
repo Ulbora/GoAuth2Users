@@ -55,19 +55,19 @@ type Handler interface {
 	DeleteRole(w http.ResponseWriter, r *http.Request)
 
 	AddUser(w http.ResponseWriter, r *http.Request)
-	// UpdateUser(w http.ResponseWriter, r *http.Request)
+	UpdateUser(w http.ResponseWriter, r *http.Request)
 	// GetUser(w http.ResponseWriter, r *http.Request)
 	// GetUserList(w http.ResponseWriter, r *http.Request)
 	// SearchUserList(w http.ResponseWriter, r *http.Request)
 	// DeleteUser(w http.ResponseWriter, r *http.Request)
-
-	// LoginUser(w http.ResponseWriter, r *http.Request)
 
 	// ClientAddUser(w http.ResponseWriter, r *http.Request)
 	// ClientUpdateUser(w http.ResponseWriter, r *http.Request)
 	// ClientGetUser(w http.ResponseWriter, r *http.Request)
 	// ClientSearchUserList(w http.ResponseWriter, r *http.Request)
 	// ClientDeleteUser(w http.ResponseWriter, r *http.Request)
+
+	// LoginUser(w http.ResponseWriter, r *http.Request)
 }
 
 //UserHandler UserHandler

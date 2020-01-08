@@ -76,3 +76,64 @@ func (h *UserHandler) AddUser(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, string(resJSON))
 	}
 }
+
+//UpdateUser UpdateUser
+func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
+	//url of this endpoint
+	fmt.Println("inside UpdateUser------------------------------------")
+
+	var upsAuURL = "/ulbora/rs/user/update"
+
+	var uprlcl jv.Claim
+	uprlcl.Role = "superAdmin"
+	uprlcl.URL = upsAuURL
+	uprlcl.Scope = "write"
+	//fmt.Println("client: ", h.Client)
+	auth := h.ValidatorClient.Authorize(r, &uprlcl, h.getValidationURL())
+	fmt.Println("auth: ", auth)
+	if auth {
+		// w.Header().Set("Content-Type", "application/json")
+		h.SetContentType(w)
+		uPasURIContOk := h.CheckContent(r)
+		fmt.Println("conOk: ", uPasURIContOk)
+		if !uPasURIContOk {
+			http.Error(w, "json required", http.StatusUnsupportedMediaType)
+		} else {
+			var upus db.User
+			upusbsuc, upuserr := h.ProcessBody(r, &upus)
+			fmt.Println("upusbsuc: ", upusbsuc)
+			fmt.Println("upus: ", upus)
+			fmt.Println("upuserr: ", upuserr)
+			if !upusbsuc && upuserr != nil {
+				http.Error(w, upuserr.Error(), http.StatusBadRequest)
+			} else {
+				var upussuc bool
+				if upus.Password != "" {
+					fmt.Println("in password ")
+					upussuc = h.Manager.UpdateUserPassword(&upus)
+				} else if upus.FirstName != "" && upus.LastName != "" && upus.Email != "" && upus.RoleID != 0 {
+					fmt.Println("in info ")
+					upussuc = h.Manager.UpdateUserInfo(&upus)
+				} else {
+					fmt.Println("in enabled ")
+					upussuc = h.Manager.UpdateUserEnabled(&upus)
+				}
+				fmt.Println("upussuc: ", upussuc)
+				var rtn Response
+				if upussuc {
+					rtn.Success = upussuc
+					w.WriteHeader(http.StatusOK)
+				} else {
+					w.WriteHeader(http.StatusInternalServerError)
+				}
+				resJSON, _ := json.Marshal(rtn)
+				fmt.Fprint(w, string(resJSON))
+			}
+		}
+	} else {
+		var fusuprtn Response
+		w.WriteHeader(http.StatusUnauthorized)
+		resJSON, _ := json.Marshal(fusuprtn)
+		fmt.Fprint(w, string(resJSON))
+	}
+}
