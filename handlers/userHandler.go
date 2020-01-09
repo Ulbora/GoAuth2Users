@@ -177,3 +177,25 @@ func (h *UserHandler) GetUser(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
+
+//GetUserList GetUserList
+func (h *UserHandler) GetUserList(w http.ResponseWriter, r *http.Request) {
+	var getAuURL = "/ulbora/rs/user/list"
+
+	var gusrlcl jv.Claim
+	gusrlcl.Role = "superAdmin"
+	gusrlcl.URL = getAuURL
+	gusrlcl.Scope = "read"
+	//fmt.Println("client: ", h.Client)
+	auth := h.ValidatorClient.Authorize(r, &gusrlcl, h.getValidationURL())
+	if auth {
+		h.SetContentType(w)
+		getUsrl := h.Manager.GetUserList()
+		fmt.Println("getUsrl: ", getUsrl)
+		w.WriteHeader(http.StatusOK)
+		resJSON, _ := json.Marshal(getUsrl)
+		fmt.Fprint(w, string(resJSON))
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
