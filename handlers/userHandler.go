@@ -199,3 +199,41 @@ func (h *UserHandler) GetUserList(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
+
+//SearchUserList SearchUserList
+func (h *UserHandler) SearchUserList(w http.ResponseWriter, r *http.Request) {
+	var getAuURL = "/ulbora/rs/user/search"
+
+	var susrcl jv.Claim
+	susrcl.Role = "superAdmin"
+	susrcl.URL = getAuURL
+	susrcl.Scope = "read"
+	//fmt.Println("client: ", h.Client)
+	auth := h.ValidatorClient.Authorize(r, &susrcl, h.getValidationURL())
+	if auth {
+		//var id string
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		fmt.Println("vars: ", len(vars))
+		if vars != nil && len(vars) != 0 {
+			var cidStr = vars["clientId"]
+			//var usernm = vars["username"]
+			fmt.Println("vars: ", vars)
+			cid, cidErr := strconv.ParseInt(cidStr, 10, 64)
+			if cid != 0 && cidErr == nil {
+				fmt.Println("cid: ", cid)
+				sUsr := h.Manager.SearchUserList(cid)
+				fmt.Println("sUsr: ", sUsr)
+				w.WriteHeader(http.StatusOK)
+				resJSON, _ := json.Marshal(sUsr)
+				fmt.Fprint(w, string(resJSON))
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+			}
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}

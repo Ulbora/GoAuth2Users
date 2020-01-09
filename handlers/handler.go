@@ -58,7 +58,7 @@ type Handler interface {
 	UpdateUser(w http.ResponseWriter, r *http.Request)
 	GetUser(w http.ResponseWriter, r *http.Request)
 	GetUserList(w http.ResponseWriter, r *http.Request)
-	// SearchUserList(w http.ResponseWriter, r *http.Request)
+	SearchUserList(w http.ResponseWriter, r *http.Request)
 	// DeleteUser(w http.ResponseWriter, r *http.Request)
 
 	// ClientAddUser(w http.ResponseWriter, r *http.Request)
