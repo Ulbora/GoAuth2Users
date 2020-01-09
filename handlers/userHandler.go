@@ -237,3 +237,47 @@ func (h *UserHandler) SearchUserList(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
+
+//DeleteUser DeleteUser
+func (h *UserHandler) DeleteUser(w http.ResponseWriter, r *http.Request) {
+	var getAuURL = "/ulbora/rs/user/delete"
+
+	var dusrcl jv.Claim
+	dusrcl.Role = "superAdmin"
+	dusrcl.URL = getAuURL
+	dusrcl.Scope = "write"
+	//fmt.Println("client: ", h.Client)
+	auth := h.ValidatorClient.Authorize(r, &dusrcl, h.getValidationURL())
+	if auth {
+		//var id string
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		fmt.Println("vars: ", len(vars))
+		if vars != nil && len(vars) == 2 {
+			var dcidStr = vars["clientId"]
+			var dusernm = vars["username"]
+			fmt.Println("vars: ", vars)
+			dcid, cidErr := strconv.ParseInt(dcidStr, 10, 64)
+			if dcid != 0 && cidErr == nil && dusernm != "" {
+				fmt.Println("cid: ", dcid)
+				dUsr := h.Manager.DeleteUser(dusernm, dcid)
+				fmt.Println("dUsr: ", dUsr)
+				var rtn Response
+				if dUsr {
+					rtn.Success = dUsr
+					w.WriteHeader(http.StatusOK)
+				} else {
+					w.WriteHeader(http.StatusInternalServerError)
+				}
+				resJSON, _ := json.Marshal(rtn)
+				fmt.Fprint(w, string(resJSON))
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+			}
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}

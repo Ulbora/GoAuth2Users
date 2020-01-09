@@ -86,3 +86,13 @@ github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:223.33,230.5 6 1
 github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:230.10,232.5 1 1
 github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:233.9,235.4 1 1
 github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:236.8,238.3 1 1
+github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:242.74,251.10 7 1
+github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:251.10,256.36 4 1
+github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:256.36,261.51 5 1
+github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:261.51,266.13 5 1
+github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:272.5,273.35 2 1
+github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:266.13,269.6 2 1
+github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:269.11,271.6 1 1
+github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:274.10,276.5 1 1
+github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:277.9,279.4 1 1
+github.com/Ulbora/GoAuth2Users/handlers/userHandler.go:280.8,282.3 1 1
