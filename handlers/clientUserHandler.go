@@ -9,6 +9,7 @@ import (
 
 	jv "github.com/Ulbora/GoAuth2JwtValidator"
 	db "github.com/Ulbora/GoAuth2Users/db"
+	"github.com/gorilla/mux"
 )
 
 /*
@@ -148,5 +149,44 @@ func (h *UserHandler) ClientUpdateUser(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(cfusuprtn)
 		fmt.Fprint(w, string(resJSON))
+	}
+}
+
+//ClientGetUser ClientGetUser
+func (h *UserHandler) ClientGetUser(w http.ResponseWriter, r *http.Request) {
+	var getcusURL = "/ulbora/rs/client/user/get"
+
+	var cgusrcl jv.Claim
+	cgusrcl.Role = "admin"
+	cgusrcl.URL = getcusURL
+	cgusrcl.Scope = "read"
+	//fmt.Println("client: ", h.Client)
+	auth := h.ValidatorClient.Authorize(r, &cgusrcl, h.getValidationURL())
+	if auth {
+		//var id string
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		fmt.Println("vars: ", len(vars))
+		if vars != nil && len(vars) == 1 {
+			//var cidStr = vars["clientId"]
+			ccidStr := r.Header.Get("clientId")
+			var cusernm = vars["username"]
+			fmt.Println("vars: ", vars)
+			cid, cidErr := strconv.ParseInt(ccidStr, 10, 64)
+			if cid != 0 && cidErr == nil && cusernm != "" {
+				fmt.Println("cid: ", cid)
+				getUsr := h.Manager.GetUser(cusernm, cid)
+				fmt.Println("getUsr: ", getUsr)
+				w.WriteHeader(http.StatusOK)
+				resJSON, _ := json.Marshal(getUsr)
+				fmt.Fprint(w, string(resJSON))
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+			}
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
