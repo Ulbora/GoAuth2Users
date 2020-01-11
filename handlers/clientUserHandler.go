@@ -83,3 +83,70 @@ func (h *UserHandler) ClientAddUser(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, string(resJSON))
 	}
 }
+
+//ClientUpdateUser ClientUpdateUser
+func (h *UserHandler) ClientUpdateUser(w http.ResponseWriter, r *http.Request) {
+	//url of this endpoint
+	fmt.Println("inside UpdateUser------------------------------------")
+
+	var upsAuURL = "/ulbora/rs/client/user/update"
+
+	var cuprlcl jv.Claim
+	cuprlcl.Role = "admin"
+	cuprlcl.URL = upsAuURL
+	cuprlcl.Scope = "write"
+	//fmt.Println("client: ", h.Client)
+	auth := h.ValidatorClient.Authorize(r, &cuprlcl, h.getValidationURL())
+	fmt.Println("auth: ", auth)
+	if auth {
+		// w.Header().Set("Content-Type", "application/json")
+		h.SetContentType(w)
+		uPasURIContOk := h.CheckContent(r)
+		fmt.Println("conOk: ", uPasURIContOk)
+		if !uPasURIContOk {
+			http.Error(w, "json required", http.StatusUnsupportedMediaType)
+		} else {
+			var cupus db.User
+			cupusbsuc, upuserr := h.ProcessBody(r, &cupus)
+			cidStr := r.Header.Get("clientId")
+			cid, cidErr := strconv.ParseInt(cidStr, 10, 64)
+			fmt.Println("cupusbsuc: ", cupusbsuc)
+			fmt.Println("upus: ", cupus)
+			fmt.Println("upuserr: ", upuserr)
+			if !cupusbsuc && upuserr != nil {
+				http.Error(w, upuserr.Error(), http.StatusBadRequest)
+			} else if cid == 0 && cidErr != nil {
+				http.Error(w, cidErr.Error(), http.StatusBadRequest)
+			} else {
+				cupus.ClientID = cid
+				fmt.Println("cupus after clientID: ", cupus)
+				var cupussuc bool
+				if cupus.Password != "" {
+					fmt.Println("in password ")
+					cupussuc = h.Manager.UpdateUserPassword(&cupus)
+				} else if cupus.FirstName != "" && cupus.LastName != "" && cupus.Email != "" && cupus.RoleID != 0 {
+					fmt.Println("in info ")
+					cupussuc = h.Manager.UpdateUserInfo(&cupus)
+				} else {
+					fmt.Println("in enabled ")
+					cupussuc = h.Manager.UpdateUserEnabled(&cupus)
+				}
+				fmt.Println("cupussuc: ", cupussuc)
+				var rtn Response
+				if cupussuc {
+					rtn.Success = cupussuc
+					w.WriteHeader(http.StatusOK)
+				} else {
+					w.WriteHeader(http.StatusInternalServerError)
+				}
+				resJSON, _ := json.Marshal(rtn)
+				fmt.Fprint(w, string(resJSON))
+			}
+		}
+	} else {
+		var cfusuprtn Response
+		w.WriteHeader(http.StatusUnauthorized)
+		resJSON, _ := json.Marshal(cfusuprtn)
+		fmt.Fprint(w, string(resJSON))
+	}
+}
