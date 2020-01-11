@@ -67,7 +67,7 @@ type Handler interface {
 	ClientSearchUserList(w http.ResponseWriter, r *http.Request)
 	ClientDeleteUser(w http.ResponseWriter, r *http.Request)
 
-	// LoginUser(w http.ResponseWriter, r *http.Request)
+	LoginUser(w http.ResponseWriter, r *http.Request)
 }
 
 //UserHandler UserHandler
