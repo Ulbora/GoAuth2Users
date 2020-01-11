@@ -190,3 +190,32 @@ func (h *UserHandler) ClientGetUser(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
+
+//ClientSearchUserList ClientSearchUserList
+func (h *UserHandler) ClientSearchUserList(w http.ResponseWriter, r *http.Request) {
+	var getCusURL = "/ulbora/rs/client/user/search"
+
+	var cusrcl jv.Claim
+	cusrcl.Role = "admin"
+	cusrcl.URL = getCusURL
+	cusrcl.Scope = "read"
+	//fmt.Println("client: ", h.Client)
+	auth := h.ValidatorClient.Authorize(r, &cusrcl, h.getValidationURL())
+	if auth {
+		h.SetContentType(w)
+		clcidStr := r.Header.Get("clientId")
+		clcid, cidErr := strconv.ParseInt(clcidStr, 10, 64)
+		if clcid != 0 && cidErr == nil {
+			fmt.Println("cid: ", clcid)
+			sUsr := h.Manager.SearchUserList(clcid)
+			fmt.Println("sUsr: ", sUsr)
+			w.WriteHeader(http.StatusOK)
+			resJSON, _ := json.Marshal(sUsr)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
