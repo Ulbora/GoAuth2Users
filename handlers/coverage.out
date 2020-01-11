@@ -1,4 +1,16 @@
 mode: set
+github.com/Ulbora/GoAuth2Users/handlers/clientUserHandler.go:35.77,45.10 7 1
+github.com/Ulbora/GoAuth2Users/handlers/clientUserHandler.go:45.10,49.21 4 1
+github.com/Ulbora/GoAuth2Users/handlers/clientUserHandler.go:49.21,51.4 1 1
+github.com/Ulbora/GoAuth2Users/handlers/clientUserHandler.go:51.9,59.32 8 1
+github.com/Ulbora/GoAuth2Users/handlers/clientUserHandler.go:59.32,61.5 1 1
+github.com/Ulbora/GoAuth2Users/handlers/clientUserHandler.go:61.10,61.40 1 1
+github.com/Ulbora/GoAuth2Users/handlers/clientUserHandler.go:61.40,63.5 1 1
+github.com/Ulbora/GoAuth2Users/handlers/clientUserHandler.go:63.10,69.16 6 1
+github.com/Ulbora/GoAuth2Users/handlers/clientUserHandler.go:75.5,76.35 2 1
+github.com/Ulbora/GoAuth2Users/handlers/clientUserHandler.go:69.16,72.6 2 1
+github.com/Ulbora/GoAuth2Users/handlers/clientUserHandler.go:72.11,74.6 1 1
+github.com/Ulbora/GoAuth2Users/handlers/clientUserHandler.go:79.8,84.3 4 1
 github.com/Ulbora/GoAuth2Users/handlers/handler.go:80.40,84.2 3 1
 github.com/Ulbora/GoAuth2Users/handlers/handler.go:87.58,90.33 3 1
 github.com/Ulbora/GoAuth2Users/handlers/handler.go:93.2,93.12 1 1
