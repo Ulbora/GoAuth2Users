@@ -33,17 +33,17 @@ import (
 func (h *UserHandler) LoginUser(w http.ResponseWriter, r *http.Request) {
 
 	h.SetContentType(w)
-	aasURIContOk := h.CheckContent(r)
-	fmt.Println("conOk: ", aasURIContOk)
-	if !aasURIContOk {
+	logURIContOk := h.CheckContent(r)
+	fmt.Println("conOk: ", logURIContOk)
+	if !logURIContOk {
 		http.Error(w, "json required", http.StatusUnsupportedMediaType)
 	} else {
 		var us db.User
-		aussuc, uaerr := h.ProcessBody(r, &us)
-		fmt.Println("aussuc: ", aussuc)
+		valsuc, uaerr := h.ProcessBody(r, &us)
+		fmt.Println("valsuc: ", valsuc)
 		fmt.Println("us: ", us)
 		fmt.Println("uaerr: ", uaerr)
-		if !aussuc && uaerr != nil {
+		if !valsuc && uaerr != nil {
 			http.Error(w, uaerr.Error(), http.StatusBadRequest)
 		} else {
 			var rtn Response
