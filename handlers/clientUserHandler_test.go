@@ -750,3 +750,203 @@ func TestUserHandler_ClientSearchUserListNotAuth(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestUserHandler_ClientDeleteUser(t *testing.T) {
+
+	var uh UserHandler
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	uh.ValidatorClient = mc.GetNewClient()
+	var um m.MockUserManager
+	um.MockDeleteUserSuc = true
+	uh.Manager = um.GetNew()
+
+	h := uh.GetNew()
+
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"username":"tester", "password":"somepw","enabled":true, "emailAddress":"tester11@tester.com","firstName":"tester","lastName":"tester", "roleId": 4, "clientId": 444}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	r.Header.Set("clientId", "10")
+	vars := map[string]string{
+		"username": "tester",
+		//"clientId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+	//r, _ := http.NewRequest("POST", "/ffllist", nil)
+	r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.ClientDeleteUser(w, r)
+	resp := w.Result()
+	body, _ := ioutil.ReadAll(resp.Body)
+	var bdy Response
+	json.Unmarshal(body, &bdy)
+	fmt.Println("bdy: ", bdy)
+	hd := w.Header()
+	fmt.Println("code: ", w.Code)
+	fmt.Println("w content type", hd.Get("Content-Type"))
+	if w.Code != 200 || w.Header().Get("Content-Type") != "application/json" || !bdy.Success {
+		t.Fail()
+	}
+}
+
+func TestUserHandler_ClientDeleteUserNoAuth(t *testing.T) {
+
+	var uh UserHandler
+	var mc jv.MockOauthClient
+	//mc.MockValidate = true
+	uh.ValidatorClient = mc.GetNewClient()
+	var um m.MockUserManager
+	um.MockDeleteUserSuc = true
+	uh.Manager = um.GetNew()
+
+	h := uh.GetNew()
+
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"username":"tester", "password":"somepw","enabled":true, "emailAddress":"tester11@tester.com","firstName":"tester","lastName":"tester", "roleId": 4, "clientId": 444}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	r.Header.Set("clientId", "10")
+	vars := map[string]string{
+		"username": "tester",
+		//"clientId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+	//r, _ := http.NewRequest("POST", "/ffllist", nil)
+	r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.ClientDeleteUser(w, r)
+	resp := w.Result()
+	body, _ := ioutil.ReadAll(resp.Body)
+	var bdy Response
+	json.Unmarshal(body, &bdy)
+	fmt.Println("bdy: ", bdy)
+	hd := w.Header()
+	fmt.Println("code: ", w.Code)
+	fmt.Println("w content type", hd.Get("Content-Type"))
+	if w.Code != 401 {
+		t.Fail()
+	}
+}
+
+func TestUserHandler_ClientDeleteUserParam(t *testing.T) {
+
+	var uh UserHandler
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	uh.ValidatorClient = mc.GetNewClient()
+	var um m.MockUserManager
+	um.MockDeleteUserSuc = true
+	uh.Manager = um.GetNew()
+
+	h := uh.GetNew()
+
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"username":"tester", "password":"somepw","enabled":true, "emailAddress":"tester11@tester.com","firstName":"tester","lastName":"tester", "roleId": 4, "clientId": 444}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	r.Header.Set("clientId", "10")
+	vars := map[string]string{
+		//"username": "tester",
+		//"clientId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+	//r, _ := http.NewRequest("POST", "/ffllist", nil)
+	r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.ClientDeleteUser(w, r)
+	resp := w.Result()
+	body, _ := ioutil.ReadAll(resp.Body)
+	var bdy Response
+	json.Unmarshal(body, &bdy)
+	fmt.Println("bdy: ", bdy)
+	hd := w.Header()
+	fmt.Println("code: ", w.Code)
+	fmt.Println("w content type", hd.Get("Content-Type"))
+	if w.Code != 400 {
+		t.Fail()
+	}
+}
+
+func TestUserHandler_ClientDeleteUserClientID(t *testing.T) {
+
+	var uh UserHandler
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	uh.ValidatorClient = mc.GetNewClient()
+	var um m.MockUserManager
+	um.MockDeleteUserSuc = true
+	uh.Manager = um.GetNew()
+
+	h := uh.GetNew()
+
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"username":"tester", "password":"somepw","enabled":true, "emailAddress":"tester11@tester.com","firstName":"tester","lastName":"tester", "roleId": 4, "clientId": 444}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	//r.Header.Set("clientId", "10")
+	vars := map[string]string{
+		"username": "tester",
+		//"clientId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+	//r, _ := http.NewRequest("POST", "/ffllist", nil)
+	r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.ClientDeleteUser(w, r)
+	resp := w.Result()
+	body, _ := ioutil.ReadAll(resp.Body)
+	var bdy Response
+	json.Unmarshal(body, &bdy)
+	fmt.Println("bdy: ", bdy)
+	hd := w.Header()
+	fmt.Println("code: ", w.Code)
+	fmt.Println("w content type", hd.Get("Content-Type"))
+	if w.Code != 400 {
+		t.Fail()
+	}
+}
+
+func TestUserHandler_ClientDeleteUserFail(t *testing.T) {
+
+	var uh UserHandler
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	uh.ValidatorClient = mc.GetNewClient()
+	var um m.MockUserManager
+	//um.MockDeleteUserSuc = true
+	uh.Manager = um.GetNew()
+
+	h := uh.GetNew()
+
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"username":"tester", "password":"somepw","enabled":true, "emailAddress":"tester11@tester.com","firstName":"tester","lastName":"tester", "roleId": 4, "clientId": 444}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	r.Header.Set("clientId", "10")
+	vars := map[string]string{
+		"username": "tester",
+		//"clientId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+	//r, _ := http.NewRequest("POST", "/ffllist", nil)
+	r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.ClientDeleteUser(w, r)
+	resp := w.Result()
+	body, _ := ioutil.ReadAll(resp.Body)
+	var bdy Response
+	json.Unmarshal(body, &bdy)
+	fmt.Println("bdy: ", bdy)
+	hd := w.Header()
+	fmt.Println("code: ", w.Code)
+	fmt.Println("w content type", hd.Get("Content-Type"))
+	if w.Code != 500 {
+		t.Fail()
+	}
+}
