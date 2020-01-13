@@ -75,6 +75,39 @@ func TestUserManager_GetRole(t *testing.T) {
 	}
 }
 
+func TestUserManager_GetRole2(t *testing.T) {
+
+	var dbbi dbi.Database
+	var mydb mdb.MyDBMock
+
+	dbbi = &mydb
+	dbbi.Connect()
+	//var udbi db.UserDatabase
+	var udb db.UserDB
+	udb.DB = dbbi
+	udbi := udb.GetNew()
+
+	//var man Manager
+	var uman UserManager
+	uman.UserDB = udbi
+	man := uman.GetNew()
+
+	var mTestRow dbi.DbRow
+	mTestRow.Row = []string{}
+	mydb.MockTestRow = &mTestRow
+
+	//mydb.MockUpdateSuccess1 = true
+
+	var mGetRow dbi.DbRow
+	mGetRow.Row = []string{}
+	mydb.MockRow1 = &mGetRow
+
+	r := man.GetRole(55)
+	if r.ID != 0 || r.Role != "" {
+		t.Fail()
+	}
+}
+
 func TestUserManager_GetRoleList(t *testing.T) {
 
 	var dbbi dbi.Database

@@ -101,16 +101,17 @@ func (m *UserManager) GetUser(username string, clientID int64) *User {
 	var rtn User
 	if username != "" && clientID > 0 {
 		u := m.UserDB.GetUser(username, clientID)
-		rtn.Username = u.Username
-		rtn.Enabled = u.Enabled
-		rtn.Entered = u.Entered
-		rtn.Email = u.Email
-		rtn.FirstName = u.FirstName
-		rtn.LastName = u.LastName
-		rtn.RoleID = u.RoleID
-		rtn.ClientID = u.ClientID
+		if u != nil {
+			rtn.Username = u.Username
+			rtn.Enabled = u.Enabled
+			rtn.Entered = u.Entered
+			rtn.Email = u.Email
+			rtn.FirstName = u.FirstName
+			rtn.LastName = u.LastName
+			rtn.RoleID = u.RoleID
+			rtn.ClientID = u.ClientID
+		}
 	}
-
 	return &rtn
 }
 
