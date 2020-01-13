@@ -42,9 +42,11 @@ func (h *UserHandler) AddRole(w http.ResponseWriter, r *http.Request) {
 	arlcl.URL = addRoleURL
 	arlcl.Scope = "write"
 	//fmt.Println("client: ", h.Validator)
+	tokenHeader := r.Header.Get("Authorization")
+	fmt.Println("tokenHeader", tokenHeader)
 	auth := h.ValidatorClient.Authorize(r, &arlcl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		aasURIContOk := h.CheckContent(r)
 		fmt.Println("conOk: ", aasURIContOk)
 		if !aasURIContOk {
@@ -91,8 +93,8 @@ func (h *UserHandler) GetRole(w http.ResponseWriter, r *http.Request) {
 	grlcl.Scope = "read"
 	//fmt.Println("client: ", h.Client)
 	auth := h.ValidatorClient.Authorize(r, &grlcl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		fmt.Println("vars: ", len(vars))
 		if vars != nil && len(vars) != 0 {
@@ -126,8 +128,8 @@ func (h *UserHandler) GetRoleList(w http.ResponseWriter, r *http.Request) {
 	grllcl.URL = getAulURL
 	grllcl.Scope = "read"
 	auth := h.ValidatorClient.Authorize(r, &grllcl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		getRll := h.Manager.GetRoleList()
 		fmt.Println("getRll: ", getRll)
 		w.WriteHeader(http.StatusOK)
@@ -148,9 +150,9 @@ func (h *UserHandler) DeleteRole(w http.ResponseWriter, r *http.Request) {
 	rldcl.Scope = "write"
 	//fmt.Println("client: ", h.Client)
 	auth := h.ValidatorClient.Authorize(r, &rldcl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
 		//var id string
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		fmt.Println("vars: ", len(vars))
 		if vars != nil && len(vars) != 0 {

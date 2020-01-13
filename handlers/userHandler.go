@@ -43,8 +43,8 @@ func (h *UserHandler) AddUser(w http.ResponseWriter, r *http.Request) {
 	auscl.Scope = "write"
 	//fmt.Println("client: ", h.Validator)
 	auth := h.ValidatorClient.Authorize(r, &auscl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		aasURIContOk := h.CheckContent(r)
 		fmt.Println("conOk: ", aasURIContOk)
 		if !aasURIContOk {
@@ -92,10 +92,10 @@ func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	uprlcl.Scope = "write"
 	//fmt.Println("client: ", h.Client)
 	auth := h.ValidatorClient.Authorize(r, &uprlcl, h.getValidationURL())
+	h.SetContentType(w)
 	fmt.Println("auth: ", auth)
 	if auth {
 		// w.Header().Set("Content-Type", "application/json")
-		h.SetContentType(w)
 		uPasURIContOk := h.CheckContent(r)
 		fmt.Println("conOk: ", uPasURIContOk)
 		if !uPasURIContOk {
@@ -150,9 +150,9 @@ func (h *UserHandler) GetUser(w http.ResponseWriter, r *http.Request) {
 	gusrcl.Scope = "read"
 	//fmt.Println("client: ", h.Client)
 	auth := h.ValidatorClient.Authorize(r, &gusrcl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
 		//var id string
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		fmt.Println("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -188,8 +188,8 @@ func (h *UserHandler) GetUserList(w http.ResponseWriter, r *http.Request) {
 	gusrlcl.Scope = "read"
 	//fmt.Println("client: ", h.Client)
 	auth := h.ValidatorClient.Authorize(r, &gusrlcl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		getUsrl := h.Manager.GetUserList()
 		fmt.Println("getUsrl: ", getUsrl)
 		w.WriteHeader(http.StatusOK)
@@ -210,9 +210,9 @@ func (h *UserHandler) SearchUserList(w http.ResponseWriter, r *http.Request) {
 	susrcl.Scope = "read"
 	//fmt.Println("client: ", h.Client)
 	auth := h.ValidatorClient.Authorize(r, &susrcl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
 		//var id string
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		fmt.Println("vars: ", len(vars))
 		if vars != nil && len(vars) != 0 {
@@ -248,9 +248,9 @@ func (h *UserHandler) DeleteUser(w http.ResponseWriter, r *http.Request) {
 	dusrcl.Scope = "write"
 	//fmt.Println("client: ", h.Client)
 	auth := h.ValidatorClient.Authorize(r, &dusrcl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
 		//var id string
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		fmt.Println("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

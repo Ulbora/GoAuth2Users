@@ -43,8 +43,8 @@ func (h *UserHandler) ClientAddUser(w http.ResponseWriter, r *http.Request) {
 	causcl.Scope = "write"
 	//fmt.Println("client: ", h.Validator)
 	auth := h.ValidatorClient.Authorize(r, &causcl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		caasURIContOk := h.CheckContent(r)
 		fmt.Println("conOk: ", caasURIContOk)
 		if !caasURIContOk {
@@ -99,9 +99,9 @@ func (h *UserHandler) ClientUpdateUser(w http.ResponseWriter, r *http.Request) {
 	//fmt.Println("client: ", h.Client)
 	auth := h.ValidatorClient.Authorize(r, &cuprlcl, h.getValidationURL())
 	fmt.Println("auth: ", auth)
+	h.SetContentType(w)
 	if auth {
 		// w.Header().Set("Content-Type", "application/json")
-		h.SetContentType(w)
 		uPasURIContOk := h.CheckContent(r)
 		fmt.Println("conOk: ", uPasURIContOk)
 		if !uPasURIContOk {
@@ -162,9 +162,9 @@ func (h *UserHandler) ClientGetUser(w http.ResponseWriter, r *http.Request) {
 	cgusrcl.Scope = "read"
 	//fmt.Println("client: ", h.Client)
 	auth := h.ValidatorClient.Authorize(r, &cgusrcl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
 		//var id string
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		fmt.Println("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
@@ -201,8 +201,8 @@ func (h *UserHandler) ClientSearchUserList(w http.ResponseWriter, r *http.Reques
 	cusrcl.Scope = "read"
 	//fmt.Println("client: ", h.Client)
 	auth := h.ValidatorClient.Authorize(r, &cusrcl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		clcidStr := r.Header.Get("clientId")
 		clcid, cidErr := strconv.ParseInt(clcidStr, 10, 64)
 		if clcid != 0 && cidErr == nil {
@@ -230,9 +230,9 @@ func (h *UserHandler) ClientDeleteUser(w http.ResponseWriter, r *http.Request) {
 	dcusrcl.Scope = "write"
 	//fmt.Println("client: ", h.Client)
 	auth := h.ValidatorClient.Authorize(r, &dcusrcl, h.getValidationURL())
+	h.SetContentType(w)
 	if auth {
 		//var id string
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		fmt.Println("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
