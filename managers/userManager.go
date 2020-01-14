@@ -2,6 +2,7 @@
 package managers
 
 import (
+	"fmt"
 	"time"
 
 	db "github.com/Ulbora/GoAuth2Users/db"
@@ -117,7 +118,7 @@ func (m *UserManager) GetUser(username string, clientID int64) *User {
 
 //GetUserList GetUserList
 func (m *UserManager) GetUserList() *[]UserList {
-	var rtn []UserList
+	var rtn = []UserList{}
 	ul := m.UserDB.GetUserList()
 	for _, u := range *ul {
 		uu := processUserList(&u)
@@ -128,7 +129,7 @@ func (m *UserManager) GetUserList() *[]UserList {
 
 //SearchUserList SearchUserList
 func (m *UserManager) SearchUserList(cid int64) *[]UserList {
-	var rtn []UserList
+	var rtn = []UserList{}
 	ul := m.UserDB.SearchUserList(cid)
 	for _, u := range *ul {
 		uu := processUserList(&u)
@@ -151,8 +152,11 @@ func (m *UserManager) ValidateUser(username string, password string, clientID in
 	var rtn bool
 	if username != "" && password != "" && clientID > 0 {
 		u := m.UserDB.GetUser(username, clientID)
-		if m.validatePassword(password, u.Password) {
-			rtn = true
+		if u != nil {
+			fmt.Println("u in validate: ", u)
+			if m.validatePassword(password, u.Password) {
+				rtn = true
+			}
 		}
 	}
 	return rtn

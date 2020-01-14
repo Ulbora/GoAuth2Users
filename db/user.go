@@ -51,7 +51,7 @@ func (d *UserDB) UpdateUser(us *User) bool {
 
 //GetUser GetUser
 func (d *UserDB) GetUser(username string, clientID int64) *User {
-	var rtn *User
+	var rtn User
 	if !d.testConnection() {
 		d.DB.Connect()
 	}
@@ -60,9 +60,9 @@ func (d *UserDB) GetUser(username string, clientID int64) *User {
 	row := d.DB.Get(getUser, a...)
 	if row != nil && len(row.Row) != 0 {
 		foundRow := row.Row
-		rtn = parseUserRow(&foundRow)
+		rtn = *parseUserRow(&foundRow)
 	}
-	return rtn
+	return &rtn
 }
 
 //GetUserList GetUserList

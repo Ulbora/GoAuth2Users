@@ -45,9 +45,6 @@ func (m *UserManager) AddRole(rl *db.Role) (bool, int64) {
 //GetRole GetRole
 func (m *UserManager) GetRole(id int64) *db.Role {
 	u := m.UserDB.GetRole(id)
-	if u == nil {
-		u = new(db.Role)
-	}
 	return u
 }
 

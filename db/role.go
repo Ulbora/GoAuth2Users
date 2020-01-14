@@ -36,7 +36,7 @@ func (d *UserDB) AddRole(rl *Role) (bool, int64) {
 
 //GetRole GetRole
 func (d *UserDB) GetRole(id int64) *Role {
-	var rtn *Role
+	var rtn = new(Role)
 	if !d.testConnection() {
 		d.DB.Connect()
 	}
@@ -52,7 +52,7 @@ func (d *UserDB) GetRole(id int64) *Role {
 
 //GetRoleList GetRoleList
 func (d *UserDB) GetRoleList() *[]Role {
-	var rtn []Role
+	var rtn = new([]Role)
 	if !d.testConnection() {
 		d.DB.Connect()
 	}
@@ -63,10 +63,10 @@ func (d *UserDB) GetRoleList() *[]Role {
 		for r := range foundRows {
 			foundRow := foundRows[r]
 			rowContent := parseRoleRow(&foundRow)
-			rtn = append(rtn, *rowContent)
+			*rtn = append(*rtn, *rowContent)
 		}
 	}
-	return &rtn
+	return rtn
 }
 
 //DeleteRole DeleteRole

@@ -1,11 +1,4 @@
 mode: set
-github.com/Ulbora/GoAuth2Users/db/database.go:77.40,85.26 8 1
-github.com/Ulbora/GoAuth2Users/db/database.go:97.2,97.12 1 1
-github.com/Ulbora/GoAuth2Users/db/database.go:85.26,90.17 3 1
-github.com/Ulbora/GoAuth2Users/db/database.go:93.3,93.20 1 1
-github.com/Ulbora/GoAuth2Users/db/database.go:90.17,92.4 1 1
-github.com/Ulbora/GoAuth2Users/db/database.go:93.20,95.4 1 1
-github.com/Ulbora/GoAuth2Users/db/database.go:101.40,105.2 3 1
 github.com/Ulbora/GoAuth2Users/db/role.go:27.50,28.25 1 1
 github.com/Ulbora/GoAuth2Users/db/role.go:31.2,34.16 4 1
 github.com/Ulbora/GoAuth2Users/db/role.go:28.25,30.3 1 1
@@ -16,7 +9,7 @@ github.com/Ulbora/GoAuth2Users/db/role.go:40.25,42.3 1 1
 github.com/Ulbora/GoAuth2Users/db/role.go:46.37,49.3 2 1
 github.com/Ulbora/GoAuth2Users/db/role.go:54.40,56.25 2 1
 github.com/Ulbora/GoAuth2Users/db/role.go:59.2,61.40 3 1
-github.com/Ulbora/GoAuth2Users/db/role.go:69.2,69.13 1 1
+github.com/Ulbora/GoAuth2Users/db/role.go:69.2,69.12 1 1
 github.com/Ulbora/GoAuth2Users/db/role.go:56.25,58.3 1 1
 github.com/Ulbora/GoAuth2Users/db/role.go:61.40,63.28 2 1
 github.com/Ulbora/GoAuth2Users/db/role.go:63.28,67.4 3 1
@@ -35,7 +28,7 @@ github.com/Ulbora/GoAuth2Users/db/user.go:46.2,49.12 4 1
 github.com/Ulbora/GoAuth2Users/db/user.go:43.25,45.3 1 1
 github.com/Ulbora/GoAuth2Users/db/user.go:53.65,55.25 2 1
 github.com/Ulbora/GoAuth2Users/db/user.go:58.2,61.37 4 1
-github.com/Ulbora/GoAuth2Users/db/user.go:65.2,65.12 1 1
+github.com/Ulbora/GoAuth2Users/db/user.go:65.2,65.13 1 1
 github.com/Ulbora/GoAuth2Users/db/user.go:55.25,57.3 1 1
 github.com/Ulbora/GoAuth2Users/db/user.go:61.37,64.3 2 1
 github.com/Ulbora/GoAuth2Users/db/user.go:69.40,71.25 2 1
@@ -60,3 +53,10 @@ github.com/Ulbora/GoAuth2Users/db/user.go:123.17,125.18 2 1
 github.com/Ulbora/GoAuth2Users/db/user.go:125.18,128.19 3 1
 github.com/Ulbora/GoAuth2Users/db/user.go:128.19,130.20 2 1
 github.com/Ulbora/GoAuth2Users/db/user.go:130.20,140.7 9 1
+github.com/Ulbora/GoAuth2Users/db/database.go:77.40,85.26 8 1
+github.com/Ulbora/GoAuth2Users/db/database.go:97.2,97.12 1 1
+github.com/Ulbora/GoAuth2Users/db/database.go:85.26,90.17 3 1
+github.com/Ulbora/GoAuth2Users/db/database.go:93.3,93.20 1 1
+github.com/Ulbora/GoAuth2Users/db/database.go:90.17,92.4 1 1
+github.com/Ulbora/GoAuth2Users/db/database.go:93.20,95.4 1 1
+github.com/Ulbora/GoAuth2Users/db/database.go:101.40,105.2 3 1

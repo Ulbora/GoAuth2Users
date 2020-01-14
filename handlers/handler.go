@@ -47,6 +47,12 @@ type Response struct {
 	Success bool `json:"success"`
 }
 
+//LoginResponse LoginResponse
+type LoginResponse struct {
+	Valid bool   `json:"valid"`
+	Code  string `json:"code"`
+}
+
 //Handler Handler
 type Handler interface {
 	AddRole(w http.ResponseWriter, r *http.Request)

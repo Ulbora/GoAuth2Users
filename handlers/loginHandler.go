@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	db "github.com/Ulbora/GoAuth2Users/db"
 )
@@ -46,12 +47,13 @@ func (h *UserHandler) LoginUser(w http.ResponseWriter, r *http.Request) {
 		if !valsuc && uaerr != nil {
 			http.Error(w, uaerr.Error(), http.StatusBadRequest)
 		} else {
-			var rtn Response
+			var rtn LoginResponse
 			if us.Username != "" && us.Password != "" && us.ClientID != 0 {
 				valid := h.Manager.ValidateUser(us.Username, us.Password, us.ClientID)
 				fmt.Println("valid: ", valid)
 				if valid {
-					rtn.Success = valid
+					rtn.Valid = valid
+					rtn.Code = strconv.FormatInt(us.ClientID, 10)
 					w.WriteHeader(http.StatusOK)
 				} else {
 					w.WriteHeader(http.StatusUnauthorized)

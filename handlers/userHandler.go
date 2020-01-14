@@ -281,3 +281,5 @@ func (h *UserHandler) DeleteUser(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
+
+// add pupulate User to db.User
