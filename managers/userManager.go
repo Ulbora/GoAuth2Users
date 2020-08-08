@@ -120,7 +120,8 @@ func (m *UserManager) GetUser(username string, clientID int64) *User {
 func (m *UserManager) GetUserList() *[]UserList {
 	var rtn = []UserList{}
 	ul := m.UserDB.GetUserList()
-	for _, u := range *ul {
+	for i := range *ul {
+		var u = (*ul)[i]
 		uu := processUserList(&u)
 		rtn = append(rtn, *uu)
 	}
@@ -131,7 +132,8 @@ func (m *UserManager) GetUserList() *[]UserList {
 func (m *UserManager) SearchUserList(cid int64) *[]UserList {
 	var rtn = []UserList{}
 	ul := m.UserDB.SearchUserList(cid)
-	for _, u := range *ul {
+	for i := range *ul {
+		var u = (*ul)[i]
 		uu := processUserList(&u)
 		rtn = append(rtn, *uu)
 	}
