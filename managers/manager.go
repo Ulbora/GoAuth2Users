@@ -5,6 +5,7 @@ import (
 	"time"
 
 	db "github.com/Ulbora/GoAuth2Users/db"
+	lg "github.com/Ulbora/Level_Logger"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -50,6 +51,7 @@ type Manager interface {
 //UserManager UserManager
 type UserManager struct {
 	UserDB db.UserDatabase
+	Log    *lg.Logger
 }
 
 //User User

@@ -2,7 +2,6 @@
 package managers
 
 import (
-	"fmt"
 	"time"
 
 	db "github.com/Ulbora/GoAuth2Users/db"
@@ -155,7 +154,7 @@ func (m *UserManager) ValidateUser(username string, password string, clientID in
 	if username != "" && password != "" && clientID > 0 {
 		u := m.UserDB.GetUser(username, clientID)
 		if u != nil {
-			fmt.Println("u in validate: ", u)
+			m.Log.Debug("u in validate: ", u)
 			if m.validatePassword(password, u.Password) {
 				rtn = true
 			}

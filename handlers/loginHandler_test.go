@@ -10,10 +10,14 @@ import (
 	"testing"
 
 	m "github.com/Ulbora/GoAuth2Users/managers"
+	lg "github.com/Ulbora/Level_Logger"
 )
 
 func TestUserHandler_LoginUser(t *testing.T) {
 	var uh UserHandler
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uh.Log = &l
 	//var mc jv.MockOauthClient
 	//mc.MockValidate = true
 	//uh.ValidatorClient = mc.GetNewClient()
@@ -44,6 +48,9 @@ func TestUserHandler_LoginUser(t *testing.T) {
 
 func TestUserHandler_LoginUserNoUser(t *testing.T) {
 	var uh UserHandler
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uh.Log = &l
 	//var mc jv.MockOauthClient
 	//mc.MockValidate = true
 	//uh.ValidatorClient = mc.GetNewClient()
@@ -74,6 +81,9 @@ func TestUserHandler_LoginUserNoUser(t *testing.T) {
 
 func TestUserHandler_LoginUserNotValid(t *testing.T) {
 	var uh UserHandler
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uh.Log = &l
 	//var mc jv.MockOauthClient
 	//mc.MockValidate = true
 	//uh.ValidatorClient = mc.GetNewClient()
@@ -104,6 +114,9 @@ func TestUserHandler_LoginUserNotValid(t *testing.T) {
 
 func TestUserHandler_LoginUserMidia(t *testing.T) {
 	var uh UserHandler
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uh.Log = &l
 	//var mc jv.MockOauthClient
 	//mc.MockValidate = true
 	//uh.ValidatorClient = mc.GetNewClient()
@@ -134,6 +147,9 @@ func TestUserHandler_LoginUserMidia(t *testing.T) {
 
 func TestUserHandler_LoginUserBody(t *testing.T) {
 	var uh UserHandler
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uh.Log = &l
 	//var mc jv.MockOauthClient
 	//mc.MockValidate = true
 	//uh.ValidatorClient = mc.GetNewClient()

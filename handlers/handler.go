@@ -4,12 +4,13 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
-	"log"
+
 	"net/http"
 	"os"
 
 	jv "github.com/Ulbora/GoAuth2JwtValidator"
 	m "github.com/Ulbora/GoAuth2Users/managers"
+	lg "github.com/Ulbora/Level_Logger"
 )
 
 /*
@@ -34,6 +35,7 @@ import (
 
 const (
 	validationServiceLocal = "http://localhost:3000/rs/token/validate"
+	superAdmin             = "superAdmin"
 )
 
 //ResponseID ResponseID
@@ -74,12 +76,15 @@ type Handler interface {
 	ClientDeleteUser(w http.ResponseWriter, r *http.Request)
 
 	LoginUser(w http.ResponseWriter, r *http.Request)
+
+	SetLogLevel(w http.ResponseWriter, r *http.Request)
 }
 
 //UserHandler UserHandler
 type UserHandler struct {
 	ValidatorClient jv.Client
 	Manager         m.Manager
+	Log             *lg.Logger
 }
 
 //GetNew GetNew
@@ -115,7 +120,7 @@ func (h *UserHandler) ProcessBody(r *http.Request, obj interface{}) (bool, error
 		err = decoder.Decode(obj)
 		//fmt.Println("decoder: ", decoder)
 		if err != nil {
-			log.Println("Decode Error: ", err.Error())
+			h.Log.Error("Decode Error: ", err.Error())
 		} else {
 			suc = true
 		}
@@ -134,4 +139,20 @@ func (h *UserHandler) getValidationURL() string {
 		url = validationServiceLocal
 	}
 	return url
+}
+
+func (h *UserHandler) getRole(r *http.Request) string {
+	var rtn string
+	role := r.Header.Get("role")
+	if role != "" {
+		appID := r.Header.Get("appId")
+		clientIDStr := r.Header.Get("clientId")
+		//clientIDStr := strconv.FormatInt(sp.Store.OauthClientID, 10)
+		// var newRoll = sp.Store.StoreName + clientIDStr + c.Role
+		var newRoll = appID + clientIDStr + role
+		rtn = newRoll
+	} else {
+		rtn = superAdmin
+	}
+	return rtn
 }

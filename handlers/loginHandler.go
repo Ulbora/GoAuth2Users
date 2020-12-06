@@ -35,22 +35,22 @@ func (h *UserHandler) LoginUser(w http.ResponseWriter, r *http.Request) {
 
 	h.SetContentType(w)
 	logURIContOk := h.CheckContent(r)
-	fmt.Println("conOk: ", logURIContOk)
+	h.Log.Debug("conOk: ", logURIContOk)
 	if !logURIContOk {
 		http.Error(w, "json required", http.StatusUnsupportedMediaType)
 	} else {
 		var us db.User
 		valsuc, uaerr := h.ProcessBody(r, &us)
-		fmt.Println("valsuc: ", valsuc)
-		fmt.Println("us: ", us)
-		fmt.Println("uaerr: ", uaerr)
+		h.Log.Debug("valsuc: ", valsuc)
+		h.Log.Debug("us: ", us)
+		h.Log.Debug("uaerr: ", uaerr)
 		if !valsuc && uaerr != nil {
 			http.Error(w, uaerr.Error(), http.StatusBadRequest)
 		} else {
 			var rtn LoginResponse
 			if us.Username != "" && us.Password != "" && us.ClientID != 0 {
 				valid := h.Manager.ValidateUser(us.Username, us.Password, us.ClientID)
-				fmt.Println("valid: ", valid)
+				h.Log.Debug("valid: ", valid)
 				if valid {
 					rtn.Valid = valid
 					rtn.Code = strconv.FormatInt(us.ClientID, 10)

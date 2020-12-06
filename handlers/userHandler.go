@@ -38,7 +38,7 @@ func (h *UserHandler) AddUser(w http.ResponseWriter, r *http.Request) {
 	var addRoleURL = "/ulbora/rs/user/add"
 
 	var auscl jv.Claim
-	auscl.Role = "superAdmin"
+	auscl.Role = h.getRole(r)
 	auscl.URL = addRoleURL
 	auscl.Scope = "write"
 	//fmt.Println("client: ", h.Validator)
@@ -46,20 +46,26 @@ func (h *UserHandler) AddUser(w http.ResponseWriter, r *http.Request) {
 	h.SetContentType(w)
 	if auth {
 		aasURIContOk := h.CheckContent(r)
-		fmt.Println("conOk: ", aasURIContOk)
+		h.Log.Debug("conOk: ", aasURIContOk)
 		if !aasURIContOk {
 			http.Error(w, "json required", http.StatusUnsupportedMediaType)
 		} else {
 			var us db.User
 			aussuc, uaerr := h.ProcessBody(r, &us)
-			fmt.Println("aussuc: ", aussuc)
-			fmt.Println("us: ", us)
-			fmt.Println("uaerr: ", uaerr)
+			h.Log.Debug("aussuc: ", aussuc)
+			h.Log.Debug("us: ", us)
+			h.Log.Debug("uaerr: ", uaerr)
 			if !aussuc && uaerr != nil {
 				http.Error(w, uaerr.Error(), http.StatusBadRequest)
 			} else {
+				var cidStr string
+				if auscl.Role != superAdmin {
+					cidStr = r.Header.Get("clientId")
+					cid, _ := strconv.ParseInt(cidStr, 10, 64)
+					us.ClientID = cid
+				}
 				ausSuc := h.Manager.AddUser(&us)
-				fmt.Println("ausSuc: ", ausSuc)
+				h.Log.Debug("ausSuc: ", ausSuc)
 				var rtn Response
 				if ausSuc {
 					rtn.Success = ausSuc
@@ -82,45 +88,51 @@ func (h *UserHandler) AddUser(w http.ResponseWriter, r *http.Request) {
 //UpdateUser UpdateUser
 func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	//url of this endpoint
-	fmt.Println("inside UpdateUser------------------------------------")
+	h.Log.Debug("inside UpdateUser------------------------------------")
 
 	var upsAuURL = "/ulbora/rs/user/update"
 
 	var uprlcl jv.Claim
-	uprlcl.Role = "superAdmin"
+	uprlcl.Role = h.getRole(r)
 	uprlcl.URL = upsAuURL
 	uprlcl.Scope = "write"
 	//fmt.Println("client: ", h.Client)
 	auth := h.ValidatorClient.Authorize(r, &uprlcl, h.getValidationURL())
 	h.SetContentType(w)
-	fmt.Println("auth: ", auth)
+	h.Log.Debug("auth: ", auth)
 	if auth {
 		// w.Header().Set("Content-Type", "application/json")
 		uPasURIContOk := h.CheckContent(r)
-		fmt.Println("conOk: ", uPasURIContOk)
+		h.Log.Debug("conOk: ", uPasURIContOk)
 		if !uPasURIContOk {
 			http.Error(w, "json required", http.StatusUnsupportedMediaType)
 		} else {
 			var upus db.User
 			upusbsuc, upuserr := h.ProcessBody(r, &upus)
-			fmt.Println("upusbsuc: ", upusbsuc)
-			fmt.Println("upus: ", upus)
-			fmt.Println("upuserr: ", upuserr)
+			h.Log.Debug("upusbsuc: ", upusbsuc)
+			h.Log.Debug("upus: ", upus)
+			h.Log.Debug("upuserr: ", upuserr)
 			if !upusbsuc && upuserr != nil {
 				http.Error(w, upuserr.Error(), http.StatusBadRequest)
 			} else {
+				var cidStr string
+				if uprlcl.Role != superAdmin {
+					cidStr = r.Header.Get("clientId")
+					cid, _ := strconv.ParseInt(cidStr, 10, 64)
+					upus.ClientID = cid
+				}
 				var upussuc bool
 				if upus.Password != "" {
-					fmt.Println("in password ")
+					h.Log.Debug("in password ")
 					upussuc = h.Manager.UpdateUserPassword(&upus)
 				} else if upus.FirstName != "" && upus.LastName != "" && upus.Email != "" && upus.RoleID != 0 {
-					fmt.Println("in info ")
+					h.Log.Debug("in info ")
 					upussuc = h.Manager.UpdateUserInfo(&upus)
 				} else {
-					fmt.Println("in enabled ")
+					h.Log.Debug("in enabled ")
 					upussuc = h.Manager.UpdateUserEnabled(&upus)
 				}
-				fmt.Println("upussuc: ", upussuc)
+				h.Log.Debug("upussuc: ", upussuc)
 				var rtn Response
 				if upussuc {
 					rtn.Success = upussuc
@@ -143,9 +155,9 @@ func (h *UserHandler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 //GetUser GetUser
 func (h *UserHandler) GetUser(w http.ResponseWriter, r *http.Request) {
 	var getAuURL = "/ulbora/rs/user/get"
-
+	h.Log.Debug("getAuURL: ", getAuURL)
 	var gusrcl jv.Claim
-	gusrcl.Role = "superAdmin"
+	gusrcl.Role = h.getRole(r)
 	gusrcl.URL = getAuURL
 	gusrcl.Scope = "read"
 	//fmt.Println("client: ", h.Client)
@@ -154,16 +166,21 @@ func (h *UserHandler) GetUser(w http.ResponseWriter, r *http.Request) {
 	if auth {
 		//var id string
 		vars := mux.Vars(r)
-		fmt.Println("vars: ", len(vars))
+		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
-			var cidStr = vars["clientId"]
+			var cidStr string
+			if gusrcl.Role == superAdmin {
+				cidStr = vars["clientId"]
+			} else {
+				cidStr = r.Header.Get("clientId")
+			}
 			var usernm = vars["username"]
-			fmt.Println("vars: ", vars)
+			h.Log.Debug("vars: ", vars)
 			cid, cidErr := strconv.ParseInt(cidStr, 10, 64)
 			if cid != 0 && cidErr == nil && usernm != "" {
-				fmt.Println("cid: ", cid)
+				h.Log.Debug("cid: ", cid)
 				getUsr := h.Manager.GetUser(usernm, cid)
-				fmt.Println("getUsr: ", getUsr)
+				h.Log.Debug("getUsr: ", getUsr)
 				w.WriteHeader(http.StatusOK)
 				resJSON, _ := json.Marshal(getUsr)
 				fmt.Fprint(w, string(resJSON))
@@ -183,7 +200,7 @@ func (h *UserHandler) GetUserList(w http.ResponseWriter, r *http.Request) {
 	var getAuURL = "/ulbora/rs/user/list"
 
 	var gusrlcl jv.Claim
-	gusrlcl.Role = "superAdmin"
+	gusrlcl.Role = superAdmin
 	gusrlcl.URL = getAuURL
 	gusrlcl.Scope = "read"
 	//fmt.Println("client: ", h.Client)
@@ -191,7 +208,7 @@ func (h *UserHandler) GetUserList(w http.ResponseWriter, r *http.Request) {
 	h.SetContentType(w)
 	if auth {
 		getUsrl := h.Manager.GetUserList()
-		fmt.Println("getUsrl: ", getUsrl)
+		h.Log.Debug("getUsrl: ", getUsrl)
 		w.WriteHeader(http.StatusOK)
 		resJSON, _ := json.Marshal(getUsrl)
 		fmt.Fprint(w, string(resJSON))
@@ -205,7 +222,7 @@ func (h *UserHandler) SearchUserList(w http.ResponseWriter, r *http.Request) {
 	var getAuURL = "/ulbora/rs/user/search"
 
 	var susrcl jv.Claim
-	susrcl.Role = "superAdmin"
+	susrcl.Role = h.getRole(r)
 	susrcl.URL = getAuURL
 	susrcl.Scope = "read"
 	//fmt.Println("client: ", h.Client)
@@ -214,16 +231,21 @@ func (h *UserHandler) SearchUserList(w http.ResponseWriter, r *http.Request) {
 	if auth {
 		//var id string
 		vars := mux.Vars(r)
-		fmt.Println("vars: ", len(vars))
+		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) != 0 {
-			var cidStr = vars["clientId"]
+			var cidStr string
+			if susrcl.Role == superAdmin {
+				cidStr = vars["clientId"]
+			} else {
+				cidStr = r.Header.Get("clientId")
+			}
 			//var usernm = vars["username"]
-			fmt.Println("vars: ", vars)
+			h.Log.Debug("vars: ", vars)
 			cid, cidErr := strconv.ParseInt(cidStr, 10, 64)
 			if cid != 0 && cidErr == nil {
-				fmt.Println("cid: ", cid)
+				h.Log.Debug("cid: ", cid)
 				sUsr := h.Manager.SearchUserList(cid)
-				fmt.Println("sUsr: ", sUsr)
+				h.Log.Debug("sUsr: ", sUsr)
 				w.WriteHeader(http.StatusOK)
 				resJSON, _ := json.Marshal(sUsr)
 				fmt.Fprint(w, string(resJSON))
@@ -243,7 +265,7 @@ func (h *UserHandler) DeleteUser(w http.ResponseWriter, r *http.Request) {
 	var getAuURL = "/ulbora/rs/user/delete"
 
 	var dusrcl jv.Claim
-	dusrcl.Role = "superAdmin"
+	dusrcl.Role = h.getRole(r)
 	dusrcl.URL = getAuURL
 	dusrcl.Scope = "write"
 	//fmt.Println("client: ", h.Client)
@@ -252,16 +274,21 @@ func (h *UserHandler) DeleteUser(w http.ResponseWriter, r *http.Request) {
 	if auth {
 		//var id string
 		vars := mux.Vars(r)
-		fmt.Println("vars: ", len(vars))
+		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
-			var dcidStr = vars["clientId"]
+			var cidStr string
+			if dusrcl.Role == superAdmin {
+				cidStr = vars["clientId"]
+			} else {
+				cidStr = r.Header.Get("clientId")
+			}
 			var dusernm = vars["username"]
-			fmt.Println("vars: ", vars)
-			dcid, cidErr := strconv.ParseInt(dcidStr, 10, 64)
+			h.Log.Debug("vars: ", vars)
+			dcid, cidErr := strconv.ParseInt(cidStr, 10, 64)
 			if dcid != 0 && cidErr == nil && dusernm != "" {
-				fmt.Println("cid: ", dcid)
+				h.Log.Debug("cid: ", dcid)
 				dUsr := h.Manager.DeleteUser(dusernm, dcid)
-				fmt.Println("dUsr: ", dUsr)
+				h.Log.Debug("dUsr: ", dUsr)
 				var rtn Response
 				if dUsr {
 					rtn.Success = dUsr

@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	db "github.com/Ulbora/GoAuth2Users/db"
+	lg "github.com/Ulbora/Level_Logger"
 	dbi "github.com/Ulbora/dbinterface"
 	mdb "github.com/Ulbora/dbinterface_mysql"
 )
@@ -24,6 +25,9 @@ func TestUserManager_AddUser(t *testing.T) {
 	//var man Manager
 	var uman UserManager
 	uman.UserDB = udbi
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uman.Log = &l
 	man := uman.GetNew()
 
 	var mTestRow dbi.DbRow
@@ -61,6 +65,9 @@ func TestUserManager_UpdateUserPw(t *testing.T) {
 	//var man Manager
 	var uman UserManager
 	uman.UserDB = udbi
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uman.Log = &l
 	man := uman.GetNew()
 
 	var mTestRow dbi.DbRow
@@ -104,6 +111,9 @@ func TestUserManager_UpdateUserEnabled(t *testing.T) {
 	//var man Manager
 	var uman UserManager
 	uman.UserDB = udbi
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uman.Log = &l
 	man := uman.GetNew()
 
 	var mTestRow dbi.DbRow
@@ -148,6 +158,9 @@ func TestUserManager_GetUser(t *testing.T) {
 	//var man Manager
 	var uman UserManager
 	uman.UserDB = udbi
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uman.Log = &l
 	man := uman.GetNew()
 
 	var mTestRow dbi.DbRow
@@ -181,6 +194,9 @@ func TestUserManager_GetUserList(t *testing.T) {
 	//var man Manager
 	var uman UserManager
 	uman.UserDB = udbi
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uman.Log = &l
 	man := uman.GetNew()
 
 	var mTestRow dbi.DbRow
@@ -218,6 +234,9 @@ func TestUserManager_SearchUserList(t *testing.T) {
 	//var man Manager
 	var uman UserManager
 	uman.UserDB = udbi
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uman.Log = &l
 	man := uman.GetNew()
 
 	var mTestRow dbi.DbRow
@@ -255,6 +274,9 @@ func TestUserManager_UpdateUserInfo(t *testing.T) {
 	//var man Manager
 	var uman UserManager
 	uman.UserDB = udbi
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uman.Log = &l
 	man := uman.GetNew()
 
 	var mTestRow dbi.DbRow
@@ -304,6 +326,9 @@ func TestUserManager_DeleteUser(t *testing.T) {
 	//var man Manager
 	var uman UserManager
 	uman.UserDB = udbi
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uman.Log = &l
 	man := uman.GetNew()
 
 	suc := man.DeleteUser("tester", 10)
@@ -335,6 +360,9 @@ func TestUserManager_LoginUser(t *testing.T) {
 	//var man Manager
 	var uman UserManager
 	uman.UserDB = udbi
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uman.Log = &l
 	man := uman.GetNew()
 
 	suc := man.ValidateUser("tester", "tester123", 10)

@@ -5,11 +5,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	lg "github.com/Ulbora/Level_Logger"
 	"net/http"
 	"os"
 	"testing"
-	//jv "github.com/Ulbora/GoAuth2JwtValidator"
-	//m "github.com/Ulbora/GoAuth2Users/managers"
 )
 
 type testObj struct {
@@ -19,6 +18,9 @@ type testObj struct {
 
 func TestUserHandler_ProcessBody(t *testing.T) {
 	var uh UserHandler
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uh.Log = &l
 	var robj testObj
 	robj.Valid = true
 	robj.Code = "3"
@@ -36,6 +38,9 @@ func TestUserHandler_ProcessBody(t *testing.T) {
 
 func TestUserHandler_ProcessBodyBadBody(t *testing.T) {
 	var uh UserHandler
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uh.Log = &l
 	var robj testObj
 	robj.Valid = true
 	robj.Code = "3"
@@ -53,6 +58,9 @@ func TestUserHandler_ProcessBodyBadBody(t *testing.T) {
 
 func TestUserHandler_getValidationURL(t *testing.T) {
 	var uh UserHandler
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uh.Log = &l
 	os.Setenv("VALIDATION_SERVICE", "testsys")
 	//var obj testObj
 	url := uh.getValidationURL()
@@ -64,6 +72,9 @@ func TestUserHandler_getValidationURL(t *testing.T) {
 
 func TestUserHandler_getValidationURL2(t *testing.T) {
 	var uh UserHandler
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	uh.Log = &l
 	os.Unsetenv("VALIDATION_SERVICE")
 	//var obj testObj
 	url := uh.getValidationURL()
@@ -71,4 +82,20 @@ func TestUserHandler_getValidationURL2(t *testing.T) {
 	if url == "testsys" {
 		t.Fail()
 	}
+}
+
+func TestUserHandler_getRole(t *testing.T) {
+	var h UserHandler
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	h.Log = &l
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	r.Header.Set("appId", "app1")
+	r.Header.Set("clientId", "50")
+	r.Header.Set("role", "admin")
+	role := h.getRole(r)
+	if role != "app150admin" {
+		t.Fail()
+	}
+
 }

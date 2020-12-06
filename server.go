@@ -10,6 +10,7 @@ import (
 	udb "github.com/Ulbora/GoAuth2Users/db"
 	han "github.com/Ulbora/GoAuth2Users/handlers"
 	m "github.com/Ulbora/GoAuth2Users/managers"
+	lg "github.com/Ulbora/Level_Logger"
 	db "github.com/Ulbora/dbinterface"
 	mdb "github.com/Ulbora/dbinterface_mysql"
 	"github.com/gorilla/mux"
@@ -56,9 +57,13 @@ func main() {
 	dbi.Connect()
 	var userDB udb.UserDB
 	userDB.DB = dbi
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
 	var uman m.UserManager
 	uman.UserDB = &userDB
+	uman.Log = &l
 	var uh han.UserHandler
+	uh.Log = &l
 	uh.Manager = &uman
 	var mc jv.OauthClient
 	//var proxy gp.GoProxy
@@ -97,6 +102,9 @@ func main() {
 	router.HandleFunc("/rs/client/user/delete/{username}", h.ClientDeleteUser).Methods("DELETE")
 
 	router.HandleFunc("/rs/user/login", h.LoginUser).Methods("POST")
+
+	router.HandleFunc("/rs/loglevel", h.SetLogLevel).Methods("POST")
+	l.LogLevel = lg.OffLevel
 
 	fmt.Println("Starting server Oauth2 Server on " + port)
 	http.ListenAndServe(":"+port, router)
